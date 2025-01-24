@@ -20,6 +20,7 @@ export const App = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [userPosts, setUserPosts] = useState<Post[]>([]);
+  const [openedPost, setOpenedPost] = useState<Post | null>(null);
 
   useEffect(() => {
     getUsers().then(setUsers);
@@ -72,7 +73,11 @@ export const App = () => {
                 )}
 
                 {!isLoading && !isError && userPosts.length > 0 && (
-                  <PostsList />
+                  <PostsList
+                    posts={userPosts}
+                    openedPost={openedPost}
+                    onSelect={setOpenedPost}
+                  />
                 )}
               </div>
             </div>
@@ -85,7 +90,7 @@ export const App = () => {
               'is-parent',
               'is-8-desktop',
               'Sidebar',
-              'Sidebar--open',
+              { 'Sidebar--open': openedPost },
             )}
           >
             <div className="tile is-child box is-success ">
