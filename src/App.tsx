@@ -28,6 +28,7 @@ export const App = () => {
 
   useEffect(() => {
     if (selectedUser) {
+      setOpenedPost(null);
       setIsLoading(true);
       getUserPosts(selectedUser.id)
         .then(setUserPosts)
@@ -72,7 +73,7 @@ export const App = () => {
                   </div>
                 )}
 
-                {!isLoading && !isError && userPosts.length > 0 && (
+                {!isLoading && userPosts.length > 0 && (
                   <PostsList
                     posts={userPosts}
                     openedPost={openedPost}
@@ -94,7 +95,7 @@ export const App = () => {
             )}
           >
             <div className="tile is-child box is-success ">
-              <PostDetails />
+              {openedPost && <PostDetails post={openedPost} />}
             </div>
           </div>
         </div>
