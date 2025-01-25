@@ -99,7 +99,13 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
           )}
         </div>
 
-        {isWritingComment && <NewCommentForm />}
+        {isWritingComment && (
+          <NewCommentForm
+            post={post}
+            comments={postComments}
+            onAdd={setPostComments}
+          />
+        )}
       </div>
     </div>
   );
