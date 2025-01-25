@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Loader } from './Loader';
 import { NewCommentForm } from './NewCommentForm';
 import { Post } from '../types/Post';
-import { getPostComments } from '../api/comments';
+import { deleteComment, getPostComments } from '../api/comments';
 import { Comment } from '../types/Comment';
 
 type Props = {
@@ -22,6 +22,13 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
       .catch(() => setIsError(true))
       .finally(() => setIsLoading(false));
   }, [post.id]);
+
+  const handleDeleteComment = (commentId: number) => {
+    setPostComments(prevComments =>
+      prevComments.filter(comment => comment.id !== commentId),
+    );
+    deleteComment(commentId);
+  };
 
   return (
     <div className="content" data-cy="PostDetails">
@@ -66,6 +73,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
                       type="button"
                       className="delete is-small"
                       aria-label="delete"
+                      onClick={() => handleDeleteComment(comment.id)}
                     >
                       delete button
                     </button>
