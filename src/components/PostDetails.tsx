@@ -13,6 +13,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [postComments, setPostComments] = useState<Comment[]>([]);
+  const [isWritingComment, setIsWritingComment] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -78,16 +79,19 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
             </>
           )}
 
-          <button
-            data-cy="WriteCommentButton"
-            type="button"
-            className="button is-link"
-          >
-            Write a comment
-          </button>
+          {!isWritingComment && (
+            <button
+              data-cy="WriteCommentButton"
+              type="button"
+              className="button is-link"
+              onClick={() => setIsWritingComment(true)}
+            >
+              Write a comment
+            </button>
+          )}
         </div>
 
-        <NewCommentForm />
+        {isWritingComment && <NewCommentForm />}
       </div>
     </div>
   );
