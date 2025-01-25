@@ -28,6 +28,7 @@ export const App = () => {
 
   useEffect(() => {
     if (selectedUser) {
+      setIsError(false);
       setOpenedPost(null);
       setIsLoading(true);
       getUserPosts(selectedUser.id)

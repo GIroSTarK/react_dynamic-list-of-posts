@@ -16,6 +16,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
   const [isWritingComment, setIsWritingComment] = useState(false);
 
   useEffect(() => {
+    setIsError(false);
     setIsLoading(true);
     getPostComments(post.id)
       .then(setPostComments)
@@ -27,7 +28,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
     setPostComments(prevComments =>
       prevComments.filter(comment => comment.id !== commentId),
     );
-    deleteComment(commentId);
+    deleteComment(commentId).catch(() => setPostComments(postComments));
   };
 
   return (
